@@ -31,4 +31,4 @@
 
   - Run the below command to test the application
 
-    `python3 bank_application/bank_application.py`
+    `python3 bank_application/main.py`
