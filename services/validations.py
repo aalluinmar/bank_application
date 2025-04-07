@@ -73,6 +73,10 @@ def is_phonenumber_available(phonenumber: str, user_details = utils.read_json_fi
     return True
 
 
+def is_valid_account_type(account_type: str) -> bool:
+    return account_type.upper() in constants.ACCOUNT_TYPES
+
+
 @retry_wrapper(attempts=3)
 def get_valid_input(prompt: str, validators: List[callable], error_messages_list: List[str]) -> str:
     utils.typewriter_effect(prompt)

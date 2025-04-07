@@ -14,3 +14,6 @@ if not os.path.exists(DATA_DIR):
 USER_DETAILS_FILE = os.path.join(DATA_DIR, "users.json")
 ACCOUNT_DETAILS_FILE = os.path.join(DATA_DIR, "accounts.json")
 TRANSACTION_DETAILS_FILE = os.path.join(DATA_DIR, "transactions.json")
+
+# Account types
+ACCOUNT_TYPES = ["CHECKING", "SAVINGS"]

@@ -28,9 +28,18 @@ class UserRegistrationService():
         self.phonenumber = phonenumber
         self.address = address
         self.user_details = utils.read_json_file(constants.USER_DETAILS_FILE)
+        # Get user ids from the existing user details and generate a new user id
+        self.user_id = utils.generate_random_number(
+            existing_numbers=[
+                user.get("user_id", 0) for user in self.user_details.values()
+            ],
+            start_range=1000000,
+            end_range=9999999
+        )
 
     def register_user(self):
         self.user_details[self.username] = {
+            "user_id": self.user_id,
             "firstname": self.firstname,
             "lastname": self.lastname,
             "password": self.password,
@@ -43,12 +52,13 @@ class UserRegistrationService():
 
 class UserDetails():
 
-    def __init__(self, username, firstname=None, lastname=None, password=None, email=None, phonenumber=None, address=None):
+    def __init__(self, username, firstname=None, lastname=None, password=None, email=None, phonenumber=None, address=None, user_id=None):
         self.username = username
         self.user_details = utils.read_json_file(constants.USER_DETAILS_FILE)
 
         # Fetch the user details from the USER_DETAILS dictionary
         if self.username in self.user_details:
+            self.user_id = self.user_details[self.username]["user_id"]
             self.firstname = self.user_details[self.username]["firstname"]
             self.lastname = self.user_details[self.username]["lastname"]
             self.password = self.user_details[self.username]["password"]
@@ -62,9 +72,22 @@ class UserDetails():
             self.email = email
             self.phonenumber = phonenumber
             self.address = address
+            self.user_id = user_id
+
+    def display_user_details(self):
+        # Display the user details
+        user_details = {
+            "Firstname": self.firstname,
+            "Lastname": self.lastname,
+            "Username": self.username,
+            "Email": self.email,
+            "Phone Number": self.phonenumber,
+            "Address": self.address
+        }
+        utils.display_table(data=user_details, heading="User Information", layout="vertical")
 
 
-def read_and_validate_user_input_data():
+def read_and_validate_user_register_data():
     """
     Read and validate user input data
     :param: None
@@ -86,7 +109,7 @@ def read_and_validate_user_input_data():
     user_registration_service.register_user()
     utils.typewriter_effect("\n     ✅ User registered successfully! 🎉\n\n")
 
-    return firstname, lastname, username, password, email, phonenumber, address
+    return firstname, lastname, username, password, email, phonenumber, address, user_registration_service.user_id
 
 
 @retry_wrapper(attempts=3)

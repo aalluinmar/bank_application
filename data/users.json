@@ -1,1 +1,20 @@
-{}
+{
+    "john": {
+        "user_id": 9073963,
+        "firstname": "john",
+        "lastname": "john",
+        "password": "john1234",
+        "email": "john@gmail.com",
+        "phonenumber": "+1 1234567890",
+        "address": "123, Main Street, New York, USA, 10001"
+    },
+    "john1": {
+        "user_id": 7908677,
+        "firstname": "jo",
+        "lastname": "jo",
+        "password": "john1234",
+        "email": "john1@gmail.com",
+        "phonenumber": "+1 1234567891",
+        "address": "123, Main Street, New York, USA, 10001"
+    }
+}

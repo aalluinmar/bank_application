@@ -1,5 +1,10 @@
 import json
 import time
+import random
+
+from typing import Any, List
+
+from tabulate import tabulate
 
 
 def loading_animation() -> None:
@@ -38,3 +43,31 @@ def write_json_file(file_path: str, data: dict) -> None:
 def fetch_digits_from_phone_number(phonenumber: str) -> str:
     # Fetch the digits from the phone number and get the last 10 digits
     return "".join([char for char in phonenumber if char.isdigit()])[-10:]
+
+
+def generate_random_number(existing_numbers: List, start_range: int = 100000000, end_range: int = 999999999) -> int:
+    # Generate a random 9 digit number which doesn't exist in the existing numbers list
+    random_number = random.randint(start_range, end_range)
+    while random_number in existing_numbers:
+        random_number = random.randint(start_range, end_range)
+    return random_number
+
+
+def display_table(data: Any, heading: str, layout: str ="horizontal") -> None:
+    """
+    Displays data in a table format with a white border.
+    :param data: List of dictionaries for horizontal format or a dictionary for vertical format
+    :param heading: Heading for the table
+    :param layout: "horizontal" or "vertical"
+    :return: None
+    """
+    print(f"\n          \033[1;97m{heading}\033[0m \n")  # Bold white heading
+    if layout == "horizontal":
+        print(tabulate(data, headers="keys", tablefmt="fancy_grid"))
+
+    elif layout == "vertical":
+        formatted_data = [[f"\033[1;97m{key}\033[0m", value] for key, value in data.items()]
+        print(tabulate(formatted_data, tablefmt="fancy_grid"))
+
+    else:
+        print("\033[91mInvalid layout type! Use 'horizontal' or 'vertical'.\033[0m")

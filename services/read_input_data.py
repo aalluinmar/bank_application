@@ -56,7 +56,6 @@ USER_REGISTRATION_INPUT_FIELDS = [
     ),
 ]
 
-
 # User login input fields with their prompts, validators, and error messages
 USER_LOGIN_INPUT_FIELDS = [
     (
@@ -70,6 +69,15 @@ USER_LOGIN_INPUT_FIELDS = [
         ["\n     ❌ Invalid Input ❌  Password should be greater than 8 characters\n"]
     ),
 ]
+
+# Account type input fields with their prompts, validators, and error messages
+ACCOUNT_TYPE_INPUT_FIELDS = [
+        (
+            "\nEnter the account type (Eg: Savings/Checking) - ",
+            [validations.is_valid_account_type],
+            ["\n     ❌ Invalid Input ❌  Please enter a valid account type\n"]
+        )
+    ]
 
 
 # --------------------------------------------
@@ -90,6 +98,14 @@ def read_user_login_details():
     :return: username, password
     """
     return read_input_details(USER_LOGIN_INPUT_FIELDS)
+
+
+def read_account_type_details():
+    """
+    Read and validate account type details
+    :return: account_type
+    """
+    return read_input_details(ACCOUNT_TYPE_INPUT_FIELDS)
 
 
 def read_input_details(input_fields: List):
